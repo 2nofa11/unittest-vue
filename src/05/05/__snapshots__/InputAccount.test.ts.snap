@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputAccount.vue Snapshot: アカウント情報の入力フォームが表示される 1`] = `
+"<fieldset data-test="input-account-fieldset">
+  <legend data-test="input-account-legend">アカウント情報の入力</legend>
+  <div><label> メールアドレス <input type="text" placeholder="example@test.com" data-test="input-email"></label></div>
+  <div><label> パスワード <input type="password" placeholder="8文字以上で入力" data-test="input-password"></label></div>
+</fieldset>"
+`;

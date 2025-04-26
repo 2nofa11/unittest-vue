@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Agreement.vue Snapshot: 利用規約の同意が表示される 1`] = `
+"<fieldset data-test="agreement-fieldset">
+  <legend data-test="agreement-legend">利用規約の同意</legend><label><input type="checkbox" data-test="agreement-checkbox"> 当サービスの<a href="/terms">利用規約</a>を確認し、これに同意します </label>
+</fieldset>"
+`;

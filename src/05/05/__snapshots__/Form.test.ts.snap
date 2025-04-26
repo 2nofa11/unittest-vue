@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form.vue Snapshot: 新規アカウント登録フォームが表示される 1`] = `
+"<form data-test="signup-form">
+  <h2>新規アカウント登録</h2>
+  <fieldset data-test="input-account-fieldset">
+    <legend data-test="input-account-legend">アカウント情報の入力</legend>
+    <div><label> メールアドレス <input type="text" placeholder="example@test.com" data-test="input-email"></label></div>
+    <div><label> パスワード <input type="password" placeholder="8文字以上で入力" data-test="input-password"></label></div>
+  </fieldset>
+  <fieldset data-test="agreement-component">
+    <legend data-test="agreement-legend">利用規約の同意</legend><label><input type="checkbox" data-test="agreement-checkbox"> 当サービスの<a href="/terms">利用規約</a>を確認し、これに同意します </label>
+  </fieldset>
+  <div><button disabled="" data-test="submit-button"> サインアップ </button></div>
+</form>"
+`;
