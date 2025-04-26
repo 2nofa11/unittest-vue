@@ -15,6 +15,7 @@ alwaysApply: true
  * Vueのディレクティブ関数を100%活用すること
 * Reactコンポーネント用のテストは、例として [Form.test.tsx](mdc:src/05/03/Form.test.tsx) を指します。それを "@Form.test.ts" にリライトします。
  * @vue/test-utilsを利用すること
+ * データを割り出す場合は"data-test"属性を付与して対応すること
  * テストケースは既存の物を全て網羅すること
  * 置き換えが難しい場合は、実装者に相談すること
 * Reactコンポーネント用のstoriesは、例として [Form.stories.tsx](mdc:src/05/03/Form.stories.tsx) を指します。それを "@Form.test.ts" にリライトします。
