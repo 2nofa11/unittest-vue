@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form.vue 過去のお届け先がある場合 Snapshot 1`] = `
+"<form data-test="form">
+  <h2 data-test="form-heading">お届け先情報の入力</h2>
+  <fieldset data-test="contact-number-component">
+    <legend data-test="contact-legend">連絡先</legend>
+    <div><label data-test="contact-number-label"> 電話番号 <input type="tel" name="phoneNumber" data-test="contact-number-input"></label></div>
+    <div><label data-test="contact-name-label"> お名前 <input type="text" name="name" data-test="contact-name-input"></label></div>
+  </fieldset>
+  <fieldset data-test="register-delivery-address-component">
+    <legend data-test="register-delivery-address-legend"> 新しいお届け先を登録しますか？ </legend><label data-test="register-no-label"><input type="radio" name="registerDeliveryAddress" data-test="register-no-input" value="false"> いいえ </label><label data-test="register-yes-label"><input type="radio" name="registerDeliveryAddress" data-test="register-yes-input" value="true"> はい </label>
+  </fieldset>
+  <fieldset disabled="" style="opacity: 0.3;" data-test="past-delivery-address-component">
+    <legend data-test="past-delivery-address-legend">過去のお届け先</legend><select name="pastDeliveryAddress" data-test="past-delivery-address-select">
+      <option data-test="past-delivery-address-option" value="address_id_xxxx">〒167-0051 東京都杉並区荻窪1-00-00</option>
+    </select>
+  </fieldset>
+  <hr>
+  <div><button type="submit" data-test="submit-button"> 注文内容の確認へ進む </button></div>
+</form>"
+`;
+
+exports[`Form.vue 過去のお届け先がない場合 Snapshot 1`] = `
+"<form data-test="form">
+  <h2 data-test="form-heading">お届け先情報の入力</h2>
+  <fieldset data-test="contact-number-component">
+    <legend data-test="contact-legend">連絡先</legend>
+    <div><label data-test="contact-number-label"> 電話番号 <input type="tel" name="phoneNumber" data-test="contact-number-input"></label></div>
+    <div><label data-test="contact-name-label"> お名前 <input type="text" name="name" data-test="contact-name-input"></label></div>
+  </fieldset>
+  <fieldset data-test="default-delivery-address-component">
+    <legend data-test="delivery-address-legend">お届け先</legend>
+    <div><label data-test="postal-code-label"> 郵便番号 <input type="text" name="postalCode" placeholder="167-0051" data-test="postal-code-input"></label></div>
+    <div><label data-test="prefecture-label"> 都道府県 <input type="text" name="prefecture" placeholder="東京都" data-test="prefecture-input"></label></div>
+    <div><label data-test="municipalities-label"> 市区町村 <input type="text" name="municipalities" placeholder="杉並区荻窪1" data-test="municipalities-input"></label></div>
+    <div><label data-test="street-address-label"> 番地番号 <input type="text" name="streetAddress" placeholder="00-00" data-test="street-address-input"></label></div>
+  </fieldset>
+  <hr>
+  <div><button type="submit" data-test="submit-button"> 注文内容の確認へ進む </button></div>
+</form>"
+`;

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import { prefectures } from "./fixtures"; // Removed import
-
 const props = withDefaults(defineProps<{ title?: string }>(), {
   title: "お届け先",
 });
@@ -19,6 +17,7 @@ const streetAddress = defineModel<string>("streetAddress");
         郵便番号
         <input
           type="text"
+          name="postalCode"
           placeholder="167-0051"
           v-model="postalCode"
           data-test="postal-code-input"
@@ -30,6 +29,7 @@ const streetAddress = defineModel<string>("streetAddress");
         都道府県
         <input
           type="text"
+          name="prefecture"
           placeholder="東京都"
           v-model="prefecture"
           data-test="prefecture-input"
@@ -41,6 +41,7 @@ const streetAddress = defineModel<string>("streetAddress");
         市区町村
         <input
           type="text"
+          name="municipalities"
           placeholder="杉並区荻窪1"
           v-model="municipalities"
           data-test="municipalities-input"
@@ -52,6 +53,7 @@ const streetAddress = defineModel<string>("streetAddress");
         番地番号
         <input
           type="text"
+          name="streetAddress"
           placeholder="00-00"
           v-model="streetAddress"
           data-test="street-address-input"

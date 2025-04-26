@@ -1,12 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
 import { mount } from "@vue/test-utils";
+import { AddressOption } from "./Form.vue";
 import PastDeliveryAddress from "./PastDeliveryAddress.vue";
-
-interface AddressOption {
-  id: string;
-  value: string;
-  children: string;
-}
 
 describe("過去のお届け先", () => {
   const options: AddressOption[] = [

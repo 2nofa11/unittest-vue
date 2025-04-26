@@ -1,13 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/vue3";
 import { ref } from "vue";
+import { AddressOption } from "./Form.vue";
 import PastDeliveryAddress from "./PastDeliveryAddress.vue";
-
-// Define the type for address options locally for the story
-interface AddressOption {
-  id: string;
-  value: string;
-  children: string;
-}
 
 // Sample options data
 const sampleOptions: AddressOption[] = [

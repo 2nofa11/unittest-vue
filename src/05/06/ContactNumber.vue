@@ -11,6 +11,7 @@ const name = defineModel<string>("name");
         電話番号
         <input
           type="tel"
+          name="phoneNumber"
           v-model="phoneNumber"
           data-test="contact-number-input"
         />
@@ -19,7 +20,12 @@ const name = defineModel<string>("name");
     <div>
       <label data-test="contact-name-label">
         お名前
-        <input type="text" v-model="name" data-test="contact-name-input" />
+        <input
+          type="text"
+          name="name"
+          v-model="name"
+          data-test="contact-name-input"
+        />
       </label>
     </div>
   </fieldset>

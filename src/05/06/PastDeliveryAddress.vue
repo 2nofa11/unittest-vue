@@ -1,12 +1,4 @@
 <script setup lang="ts">
-// Define the type for address options, similar to React's AddressOption
-// Assuming it looks something like this based on the story
-interface AddressOption {
-  id: string;
-  value: string;
-  children: string;
-}
-
 const props = defineProps<{
   disabled?: boolean;
   options: AddressOption[];
