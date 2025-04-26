@@ -15,9 +15,3 @@ export default {
 type Story = StoryObj<typeof Agreement>;
 
 export const Default: Story = {};
-
-export const Checked: Story = {
-  args: {
-    modelValue: true,
-  },
-};
