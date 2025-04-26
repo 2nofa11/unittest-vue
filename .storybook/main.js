@@ -6,8 +6,8 @@ module.exports = {
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
   ],
-  framework: "@storybook/react",
+  framework: ["@storybook/react", "@storybook/vue3-vite"],
   core: {
     builder: "@storybook/builder-webpack5",
   },
-}
+};
