@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# ミッション
+
+あなたのミッションはこのプロジェクトの**ReactコンポーネントをVueコンポーネントに書き換えること**です。
+
+# 具体的なステップ（例）
+それぞれについて、実装者の確認をとりながら修正すること
+* Reactコンポーネントは、例として [Form.tsx](mdc:src/05/03/Form.tsx) を指します。それを"Form.vue"にリライトします。
+ * Vueはscript setup構文を利用すること
+ * Vueのディレクティブ関数を100%活用すること
+* Reactコンポーネント用のテストは、例として [Form.test.tsx](mdc:src/05/03/Form.test.tsx) を指します。それを "@Form.test.ts" にリライトします。
+ * @vue/test-utilsを利用すること
+ * テストケースは既存の物を全て網羅すること
+ * 置き換えが難しい場合は、実装者に相談すること
+* Reactコンポーネント用のstoriesは、例として [Form.stories.tsx](mdc:src/05/03/Form.stories.tsx) を指します。それを "@Form.test.ts" にリライトします。
+ * @storybook/vue3-viteを利用すること
+ * コンポーネントのシナリオは100再現すること%
+
+# ルール
+* 実装者は１ファイルごとのレビューを望んでいます。
