@@ -1,4 +1,4 @@
-export class ValidationError extends Error { }
+export class ValidationError extends Error {}
 
 export function checkLength(value: string) {
   if (value.length === 0) {
