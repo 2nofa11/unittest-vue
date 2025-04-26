@@ -1,4 +1,4 @@
-import { ItemProps } from "./ArticleListItem";
+import type { ItemProps } from "./ArticleListItem.vue";
 
 export const items: ItemProps[] = [
   {

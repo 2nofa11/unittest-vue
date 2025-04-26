@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form.vue Snapshot: アカウント名「taro」が表示される 1`] = `
+"<form>
+  <h2>アカウント情報</h2>
+  <p>taro</p>
+  <div><button>編集する</button></div>
+</form>"
+`;
