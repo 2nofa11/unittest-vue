@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import Form from "../06/Form.vue";
 import { postMyAddress } from "./fetchers";
-import { handleSubmitHelper } from "./handleSubmit";
 import { checkPhoneNumber, ValidationError } from "./validations";
 
 interface FormData {
@@ -15,7 +14,6 @@ interface FormData {
   pastDeliveryAddress?: string;
 }
 
-const form = ref<HTMLFormElement>();
 const postResult = ref<string>("");
 
 const submitLogic = (values: Partial<FormData>) => {
@@ -44,13 +42,11 @@ const submitLogic = (values: Partial<FormData>) => {
     }
   }
 };
-
-const handleFormSubmit = handleSubmitHelper(submitLogic);
 </script>
 
 <template>
   <div>
-    <Form @submit="handleFormSubmit" data-test="register-address-form" />
+    <Form @submit="submitLogic" data-test="register-address-form" />
     <p v-if="postResult" data-test="post-result">{{ postResult }}</p>
   </div>
 </template>
