@@ -50,7 +50,7 @@ const handleFormSubmit = handleSubmitHelper(submitLogic);
 
 <template>
   <div>
-    <Form :onSubmit="handleFormSubmit" data-test="register-address-form" />
+    <Form @submit="handleFormSubmit" data-test="register-address-form" />
     <p v-if="postResult" data-test="post-result">{{ postResult }}</p>
   </div>
 </template>

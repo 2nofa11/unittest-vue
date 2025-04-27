@@ -13,7 +13,10 @@ export interface AddressOption {
 
 const props = defineProps<{
   deliveryAddresses?: AddressOption[];
-  onSubmit?: (event: Event) => void; // Added onSubmit prop
+}>();
+
+const emit = defineEmits<{
+  (e: "submit", values: Record<string, any>): void;
 }>();
 
 const phoneNumber = ref("");
@@ -32,13 +35,17 @@ const hasPastAddresses = computed(
 const isPastAddressDisabled = computed(
   () => registerNewAddress.value === undefined
 );
+
+const handleFormSubmit = (event: Event) => {
+  const formData = new FormData(event.target as HTMLFormElement);
+  const values: { [k: string]: unknown } = {};
+  formData.forEach((value, key) => (values[key] = value));
+  emit("submit", values); // submit イベントを発行
+};
 </script>
 
 <template>
-  <form
-    @submit.prevent="onSubmit ? onSubmit($event) : undefined"
-    data-test="form"
-  >
+  <form @submit.prevent="handleFormSubmit" data-test="form">
     <h2 data-test="form-heading">お届け先情報の入力</h2>
 
     <ContactNumber
