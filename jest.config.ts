@@ -2,7 +2,7 @@ export default {
   clearMocks: true,
   collectCoverage: false,
   coverageDirectory: "coverage",
-  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "vue"],
+  moduleFileExtensions: ["js", "ts", "vue"],
   testEnvironment: "jest-environment-jsdom",
   testEnvironmentOptions: {
     customExportConditions: ["node", "node-addons"],
@@ -11,7 +11,6 @@ export default {
     "^.+\\.(ts|tsx)$": ["esbuild-jest", { sourcemap: true }],
     "^.+\\.vue$": ["@vue/vue3-jest", { sourcemap: true }],
   },
-  setupFilesAfterEnv: ["./jest.setup.ts"],
   reporters: [
     "default",
     [
