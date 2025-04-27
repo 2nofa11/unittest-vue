@@ -4,6 +4,7 @@ import ContactNumber from "./ContactNumber.vue";
 import DeliveryAddress from "./DeliveryAddress.vue";
 import PastDeliveryAddress from "./PastDeliveryAddress.vue";
 import RegisterDeliveryAddress from "./RegisterDeliveryAddress.vue";
+import type { SubmitFormData } from "../types";
 
 export interface AddressOption {
   id: string;
@@ -16,7 +17,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "submit", values: Record<string, any>): void;
+  (e: "submit", values: Partial<SubmitFormData>): void;
 }>();
 
 const phoneNumber = ref("");
@@ -27,6 +28,26 @@ const postalCode = ref("");
 const prefecture = ref("");
 const municipalities = ref("");
 const streetAddress = ref("");
+
+// AddressValues 型をタグ付きユニオンとして再定義
+type NewAddressData = {
+  addressType: "new";
+  postalCode?: string;
+  prefecture?: string;
+  municipalities?: string;
+  streetAddress?: string;
+};
+
+type PastAddressData = {
+  addressType: "past";
+  pastDeliveryAddress?: string;
+};
+
+type NoAddressData = {
+  addressType: "none";
+};
+
+type AddressValues = NewAddressData | PastAddressData | NoAddressData;
 
 const hasPastAddresses = computed(
   () => (props.deliveryAddresses?.length || 0) > 0
@@ -43,11 +64,12 @@ const handleFormSubmit = () => {
     name: name.value,
   };
 
-  let addressValues = {}; // 住所関連の値を格納するオブジェクト
+  let addressValues: AddressValues = { addressType: "none" };
 
   if (registerNewAddress.value === true || !hasPastAddresses.value) {
     // 新しい住所を登録する場合、または過去の住所がない場合
     addressValues = {
+      addressType: "new",
       postalCode: postalCode.value,
       prefecture: prefecture.value,
       municipalities: municipalities.value,
@@ -56,10 +78,17 @@ const handleFormSubmit = () => {
   } else if (registerNewAddress.value === false) {
     // 過去の住所を選択した場合
     addressValues = {
+      addressType: "past",
       pastDeliveryAddress: selectedPastAddressValue.value,
     };
   }
-  const values = { ...baseValues, ...addressValues };
+  // 初期状態 (undefined) の場合は addressValues は { addressType: 'none' } のまま
+
+  // addressType は内部的な状態管理用なので、送信データからは除外する
+  const { addressType, ...submitAddressValues } = addressValues;
+
+  // ベースの値と住所の値をマージして送信
+  const values = { ...baseValues, ...submitAddressValues };
   emit("submit", values);
 };
 </script>

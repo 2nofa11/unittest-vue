@@ -3,20 +3,11 @@ import { ref } from "vue";
 import Form from "../06/Form.vue";
 import { postMyAddress } from "./fetchers";
 import { checkPhoneNumber, ValidationError } from "./validations";
-
-interface FormData {
-  phoneNumber: string;
-  name: string;
-  postalCode?: string;
-  prefecture?: string;
-  municipalities?: string;
-  streetAddress?: string;
-  pastDeliveryAddress?: string;
-}
+import type { SubmitFormData } from "../types";
 
 const postResult = ref<string>("");
 
-const submitLogic = (values: Partial<FormData>) => {
+const submitLogic = (values: Partial<SubmitFormData>) => {
   postResult.value = "";
   try {
     checkPhoneNumber(values.phoneNumber);
