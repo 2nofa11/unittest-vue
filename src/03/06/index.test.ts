@@ -83,7 +83,7 @@ describe("文字列の検証", () => {
 
 describe("配列の検証", () => {
   describe("プリミティブ配列", () => {
-    const tags = ["Jest", "Storybook", "Playwright", "React", "Next.js"];
+    const tags = ["Jest", "Storybook", "Playwright", "Vue,js", "Nuxt"];
     test("toContain", () => {
       expect(tags).toContain("Jest");
       expect(tags).toHaveLength(5);

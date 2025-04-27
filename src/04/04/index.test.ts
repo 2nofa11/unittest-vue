@@ -30,8 +30,8 @@ test("指定したタグをもつ記事が一件以上ある場合、リンク�
       title: "TypeScript を使ったテストの書き方",
     },
     {
-      link: "/articles/react-component-testing-with-jest",
-      title: "Jest ではじめる React のコンポーネントテスト",
+      link: "/articles/vue-component-testing-with-jest",
+      title: "Jest ではじめる Vue のコンポーネントテスト",
     },
   ]);
 });
