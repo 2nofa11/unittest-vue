@@ -1,4 +1,3 @@
-import { describe, expect, jest, test } from "@jest/globals";
 import { mount, VueWrapper } from "@vue/test-utils";
 import ContactNumber from "./ContactNumber.vue";
 import DeliveryAddress from "./DeliveryAddress.vue";
@@ -53,17 +52,13 @@ async function clickSubmit(wrapper: VueWrapper<any>) {
   await wrapper.find('[data-test="submit-button"]').trigger("submit");
 }
 
-// Mock submit handler (remains similar)
-function mockHandleSubmit() {
-  const mockFn = jest.fn();
-  const onSubmit = (event: Event) => {
-    const form = event.target as HTMLFormElement;
-    const formData = new FormData(form);
-    const data: { [k: string]: unknown } = {};
-    formData.forEach((value, key) => (data[key] = value));
-    mockFn(data);
-  };
-  return [mockFn, onSubmit] as const;
+function expectSubmitEventPayload(
+  wrapper: VueWrapper<any>,
+  expectedPayload: Record<string, any>
+) {
+  const emitted = wrapper.emitted("submit");
+  expect(emitted).toHaveLength(1);
+  expect(emitted![0]).toEqual([expect.objectContaining(expectedPayload)]);
 }
 
 describe("Form.vue", () => {
@@ -75,17 +70,17 @@ describe("Form.vue", () => {
     });
 
     test("入力・送信すると、入力内容が送信される", async () => {
-      const [mockFn, onSubmit] = mockHandleSubmit();
       const wrapper = mount(Form, {
-        props: { deliveryAddresses: [], onSubmit },
+        props: { deliveryAddresses: [] },
       });
       const contactNumber = await inputContactNumber(wrapper);
       const deliveryAddress = await inputDeliveryAddress(wrapper);
       await wrapper.find('[data-test="form"]').trigger("submit"); // Trigger submit on form
 
-      expect(mockFn).toHaveBeenCalledWith(
-        expect.objectContaining({ ...contactNumber, ...deliveryAddress })
-      );
+      expectSubmitEventPayload(wrapper, {
+        ...contactNumber,
+        ...deliveryAddress,
+      });
     });
 
     test("Snapshot", () => {
@@ -109,22 +104,29 @@ describe("Form.vue", () => {
     });
 
     test("「いいえ」を選択・入力・送信すると、入力内容が送信される", async () => {
-      const [mockFn, onSubmit] = mockHandleSubmit();
-      const wrapper = mount(Form, { props: { deliveryAddresses, onSubmit } });
+      const wrapper = mount(Form, {
+        props: { deliveryAddresses },
+      });
 
       await wrapper.find('[data-test="register-no-input"]').setValue();
 
-      expect(wrapper.findComponent(PastDeliveryAddress).exists()).toBe(true);
+      const pastAddressWrapper = wrapper.findComponent(PastDeliveryAddress);
+      const select = pastAddressWrapper.find("select");
+      await select.setValue(deliveryAddresses[1].value);
 
       const inputValues = await inputContactNumber(wrapper);
       await wrapper.find('[data-test="form"]').trigger("submit");
 
-      expect(mockFn).toHaveBeenCalledWith(expect.objectContaining(inputValues));
+      expectSubmitEventPayload(wrapper, {
+        ...inputValues,
+        pastDeliveryAddress: deliveryAddresses[1].value,
+      });
     });
 
     test("「はい」を選択・入力・送信すると、入力内容が送信される", async () => {
-      const [mockFn, onSubmit] = mockHandleSubmit();
-      const wrapper = mount(Form, { props: { deliveryAddresses, onSubmit } });
+      const wrapper = mount(Form, {
+        props: { deliveryAddresses },
+      });
 
       await wrapper.find('[data-test="register-yes-input"]').setValue();
 
@@ -134,9 +136,10 @@ describe("Form.vue", () => {
       const deliveryAddress = await inputDeliveryAddress(wrapper);
       await wrapper.find('[data-test="form"]').trigger("submit");
 
-      expect(mockFn).toHaveBeenCalledWith(
-        expect.objectContaining({ ...contactNumber, ...deliveryAddress })
-      );
+      expectSubmitEventPayload(wrapper, {
+        ...contactNumber,
+        ...deliveryAddress,
+      });
     });
 
     test("Snapshot", () => {

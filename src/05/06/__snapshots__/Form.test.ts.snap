@@ -14,6 +14,7 @@ exports[`Form.vue 過去のお届け先がある場合 Snapshot 1`] = `
   <fieldset disabled="" style="opacity: 0.3;" data-test="past-delivery-address-component">
     <legend data-test="past-delivery-address-legend">過去のお届け先</legend><select name="pastDeliveryAddress" data-test="past-delivery-address-select">
       <option data-test="past-delivery-address-option" value="address_id_xxxx">〒167-0051 東京都杉並区荻窪1-00-00</option>
+      <option data-test="past-delivery-address-option" value="address_id_yyyy">〒150-0041 東京都渋谷区神南2-1-1</option>
     </select>
   </fieldset>
   <hr>

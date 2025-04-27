@@ -36,11 +36,31 @@ const isPastAddressDisabled = computed(
   () => registerNewAddress.value === undefined
 );
 
-const handleFormSubmit = (event: Event) => {
-  const formData = new FormData(event.target as HTMLFormElement);
-  const values: { [k: string]: unknown } = {};
-  formData.forEach((value, key) => (values[key] = value));
-  emit("submit", values); // submit イベントを発行
+const handleFormSubmit = () => {
+  // ベースとなる値
+  const baseValues = {
+    phoneNumber: phoneNumber.value,
+    name: name.value,
+  };
+
+  let addressValues = {}; // 住所関連の値を格納するオブジェクト
+
+  if (registerNewAddress.value === true || !hasPastAddresses.value) {
+    // 新しい住所を登録する場合、または過去の住所がない場合
+    addressValues = {
+      postalCode: postalCode.value,
+      prefecture: prefecture.value,
+      municipalities: municipalities.value,
+      streetAddress: streetAddress.value,
+    };
+  } else if (registerNewAddress.value === false) {
+    // 過去の住所を選択した場合
+    addressValues = {
+      pastDeliveryAddress: selectedPastAddressValue.value,
+    };
+  }
+  const values = { ...baseValues, ...addressValues };
+  emit("submit", values);
 };
 </script>
 
