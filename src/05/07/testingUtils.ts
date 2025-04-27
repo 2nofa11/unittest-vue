@@ -1,58 +1,87 @@
-import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { VueWrapper } from "@vue/test-utils";
+// Import component types if needed for findComponent
+import ContactNumber from "../06/ContactNumber.vue";
+import DeliveryAddress from "../06/DeliveryAddress.vue";
+import Form from "../06/Form.vue"; // Import Form component
 
-const user = userEvent.setup();
-
-export function getGroupByName(name: string) {
-  return screen.getByRole("group", { name });
-}
+// getGroupByName using roles is difficult with basic Vue Test Utils
+// export function getGroupByName(wrapper: VueWrapper<any>, name: string) {
+//   // Find fieldset by legend text maybe?
+//   // This is less reliable than Testing Library's role query
+// }
 
 export async function inputContactNumber(
+  wrapper: VueWrapper<any>,
   inputValues = {
     name: "田中 太郎",
     phoneNumber: "000-0000-0000",
   }
 ) {
-  await user.type(
-    screen.getByRole("textbox", { name: "電話番号" }),
-    inputValues.phoneNumber
+  // Find the component instance first
+  const contactWrapper = wrapper.findComponent(ContactNumber);
+  if (!contactWrapper.exists())
+    throw new Error("ContactNumber component not found");
+
+  // Find inputs within the component using data-test attributes
+  const phoneInput = contactWrapper.find<HTMLInputElement>(
+    '[data-test="contact-number-input"]'
   );
-  await user.type(
-    screen.getByRole("textbox", { name: "お名前" }),
-    inputValues.name
+  const nameInput = contactWrapper.find<HTMLInputElement>(
+    '[data-test="contact-name-input"]'
   );
+
+  if (!phoneInput.exists()) throw new Error("Phone number input not found");
+  if (!nameInput.exists()) throw new Error("Name input not found");
+
+  await phoneInput.setValue(inputValues.phoneNumber);
+  await nameInput.setValue(inputValues.name);
   return inputValues;
 }
 
 export async function inputDeliveryAddress(
+  wrapper: VueWrapper<any>,
   inputValues = {
     postalCode: "167-0051",
-    prefectures: "東京都",
+    prefecture: "東京都",
     municipalities: "杉並区荻窪1",
-    streetNumber: "00-00",
+    streetAddress: "00-00", // Use the key consistent with Vue component
   }
 ) {
-  await user.type(
-    screen.getByRole("textbox", { name: "郵便番号" }),
-    inputValues.postalCode
+  // Find the component instance (could be default or new address)
+  const addressWrapper = wrapper.findComponent(DeliveryAddress);
+  if (!addressWrapper.exists())
+    throw new Error("DeliveryAddress component not found");
+
+  // Find inputs within the component using data-test attributes
+  const postalInput = addressWrapper.find<HTMLInputElement>(
+    '[data-test="postal-code-input"]'
   );
-  await user.type(
-    screen.getByRole("textbox", { name: "都道府県" }),
-    inputValues.prefectures
+  const prefInput = addressWrapper.find<HTMLInputElement>(
+    '[data-test="prefecture-input"]'
   );
-  await user.type(
-    screen.getByRole("textbox", { name: "市区町村" }),
-    inputValues.municipalities
+  const muniInput = addressWrapper.find<HTMLInputElement>(
+    '[data-test="municipalities-input"]'
   );
-  await user.type(
-    screen.getByRole("textbox", { name: "番地番号" }),
-    inputValues.streetNumber
+  const streetInput = addressWrapper.find<HTMLInputElement>(
+    '[data-test="street-address-input"]'
   );
+
+  if (!postalInput.exists()) throw new Error("Postal code input not found");
+  if (!prefInput.exists()) throw new Error("Prefecture input not found");
+  if (!muniInput.exists()) throw new Error("Municipalities input not found");
+  if (!streetInput.exists()) throw new Error("Street address input not found");
+
+  await postalInput.setValue(inputValues.postalCode);
+  await prefInput.setValue(inputValues.prefecture);
+  await muniInput.setValue(inputValues.municipalities);
+  await streetInput.setValue(inputValues.streetAddress);
   return inputValues;
 }
 
-export async function clickSubmit() {
-  await user.click(
-    screen.getByRole("button", { name: "注文内容の確認へ進む" })
-  );
+export async function clickSubmit(wrapper: VueWrapper<any>) {
+  const formWrapper = wrapper.findComponent(Form);
+  if (!formWrapper.exists()) {
+    throw new Error("Form component not found within the wrapper");
+  }
+  await formWrapper.trigger("submit");
 }
